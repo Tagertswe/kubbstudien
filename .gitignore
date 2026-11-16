@@ -1,0 +1,11 @@
+# Bilderna och allt som byggs direkt ur dem stannar på Martins dator
+export/
+work/*
+!work/stats.json
+work/charts/
+
+# Ente-programmet och dess byggfiler
+tools/
+
+__pycache__/
+*.pyc

@@ -1,0 +1,573 @@
+<title>Kubbstudien</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Schibsted+Grotesk:wght@400;600;800&display=swap">
+<style>
+/* Layout: one reading column set like a journal article; figures break out wider than the text. */
+:root {
+  --paper: #fbfcfe;
+  --panel: #f1f4f9;
+  --ink: #101a2b;
+  --ink-2: #47536a;
+  --ink-3: #7a869c;
+  --rule: #d5dbe6;
+  --accent: #1c5cab;
+  --marker: #ffd84d;
+  --marker-ink: #101a2b;
+  --kubb: #2a78d6;
+  --kubb-edge: #14427f;
+  --martin: #eb6834;
+  --friend: #1baf7a;
+  --jana: #4a3aa7;
+  --other: #9aa5b8;
+  --band-m: rgba(235, 104, 52, .13);
+  --band-f: rgba(27, 175, 122, .14);
+  --band-j: rgba(74, 58, 167, .11);
+  --band-pi: rgba(42, 120, 214, .12);
+  --serif: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --sans: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0f151e; --panel: #18202c; --ink: #e9edf4; --ink-2: #b3bdcd; --ink-3: #8390a5;
+    --rule: #2b3545; --accent: #86b6ef; --marker: #ffd84d; --marker-ink: #101a2b;
+    --kubb: #3987e5; --kubb-edge: #b5d3f7; --martin: #d95926; --friend: #199e70; --jana: #9085e9; --band-j: rgba(144, 133, 233, .20); --other: #66728a;
+    --band-m: rgba(217, 89, 38, .22); --band-f: rgba(25, 158, 112, .22); --band-pi: rgba(57, 135, 229, .18);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0f151e; --panel: #18202c; --ink: #e9edf4; --ink-2: #b3bdcd; --ink-3: #8390a5;
+  --rule: #2b3545; --accent: #86b6ef; --marker: #ffd84d; --marker-ink: #101a2b;
+  --kubb: #3987e5; --kubb-edge: #b5d3f7; --martin: #d95926; --friend: #199e70; --jana: #9085e9; --band-j: rgba(144, 133, 233, .20); --other: #66728a;
+  --band-m: rgba(217, 89, 38, .22); --band-f: rgba(25, 158, 112, .22); --band-pi: rgba(57, 135, 229, .18);
+  color-scheme: dark;
+}
+body { background: var(--paper); color: var(--ink); font-family: var(--serif); font-size: 18px; line-height: 1.55; }
+.page { max-width: 940px; margin: 0 auto; padding-inline: 20px; padding-block: 28px 72px; display: flex; flex-direction: column; gap: 30px; }
+.col { max-width: 66ch; width: 100%; margin-inline: auto; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.col p { margin: 0; }
+.masthead { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 24px; font-family: var(--sans); font-size: 12px; letter-spacing: .09em; text-transform: uppercase; color: var(--ink-2); border-bottom: 2px solid var(--ink); padding-bottom: 8px; }
+h1 { font-family: var(--sans); font-weight: 800; font-size: clamp(30px, 5.6vw, 52px); line-height: 1.04; letter-spacing: -.02em; margin: 0; text-wrap: balance; }
+.sub { font-style: italic; font-size: 21px; color: var(--ink-2); text-wrap: balance; }
+.authors { font-family: var(--sans); font-size: 15px; }
+.affil { font-family: var(--sans); font-size: 13px; color: var(--ink-2); line-height: 1.45; }
+h2 { font-family: var(--sans); font-weight: 800; font-size: 22px; letter-spacing: -.01em; margin: 10px 0 0; text-wrap: balance; }
+h3 { font-family: var(--sans); font-weight: 600; font-size: 16px; margin: 6px 0 0; }
+.num { font-family: var(--mono); font-size: .86em; font-variant-numeric: tabular-nums; white-space: nowrap; }
+mark { background: var(--marker); color: var(--marker-ink); padding: 0 .18em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.abstract { background: var(--panel); padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; font-size: 17px; }
+.abstract .label, .eyebrow { font-family: var(--sans); font-size: 12px; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: var(--ink-2); }
+.keys { font-family: var(--sans); font-size: 13px; color: var(--ink-2); }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(165px, 1fr)); gap: 0; border-block: 1px solid var(--rule); }
+.tile { padding: 16px 18px 16px 0; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.tile .v { font-family: var(--sans); font-weight: 800; font-size: 28px; letter-spacing: -.02em; line-height: 1.1; white-space: nowrap; }
+.tile .k { font-family: var(--sans); font-size: 13px; color: var(--ink-2); line-height: 1.35; }
+figure { margin: 0; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+figcaption { font-family: var(--sans); font-size: 14px; color: var(--ink-2); line-height: 1.45; max-width: 78ch; }
+figcaption b { color: var(--ink); }
+.plot { position: relative; width: 100%; }
+.plot svg { display: block; width: 100%; overflow: visible; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-family: var(--sans); font-size: 13px; color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sw { width: 12px; height: 12px; border-radius: 50%; flex: none; }
+.sw.kubb { background: var(--kubb); } .sw.field { border: 2px solid var(--kubb); } .sw.unsure { border: 2px dashed var(--ink-3); }
+.sw.est { width: 9px; height: 9px; border-radius: 0; background: var(--marker); border: 1.5px solid var(--ink); transform: rotate(45deg); }
+.sw.other { width: 2px; height: 12px; border-radius: 0; background: var(--other); }
+.sw.m { border-radius: 2px; background: var(--martin); } .sw.f { border-radius: 2px; background: var(--friend); }
+.sw.j { border-radius: 2px; background: repeating-linear-gradient(90deg, var(--jana) 0 4px, transparent 4px 6px); }
+.sw.bar-other { border-radius: 2px; background: var(--other); } .sw.bar-kubb { border-radius: 2px; background: var(--kubb); }
+.tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--paper); font-family: var(--sans); font-size: 12.5px; line-height: 1.35; padding: 6px 9px; border-radius: 4px; white-space: nowrap; z-index: 2; }
+.tip b { font-family: var(--mono); font-weight: 500; font-size: 13px; }
+svg text { font-family: var(--sans); font-size: 12px; fill: var(--ink-2); }
+svg text.strong { fill: var(--ink); font-weight: 600; }
+svg text.data { font-family: var(--mono); font-size: 11.5px; fill: var(--ink); }
+svg .grid { stroke: var(--rule); stroke-width: 1; fill: none; }
+svg .axis { stroke: var(--ink-3); stroke-width: 1; fill: none; }
+svg .band-m { fill: var(--band-m); } svg .band-f { fill: var(--band-f); } svg .band-pi { fill: var(--band-pi); } svg .band-j { fill: var(--band-j); }
+svg .ref-m { stroke: var(--martin); stroke-width: 2; fill: none; } svg .ref-f { stroke: var(--friend); stroke-width: 2; fill: none; }
+/* Jana's line is dashed as well as violet, so it never relies on hue alone next to the blue data */
+svg .ref-j { stroke: var(--jana); stroke-width: 2; stroke-dasharray: 6 4; fill: none; }
+svg .arrow-j { fill: var(--jana); }
+svg .kubb { fill: var(--kubb); stroke: var(--paper); stroke-width: 1.5; }
+svg .field { fill: var(--paper); stroke: var(--kubb); stroke-width: 2; }
+/* the timeline's photo marks carry no paper-coloured halo or fill: stacked on a guess's band it reads as a white blot */
+svg .shot { fill: var(--kubb); stroke: var(--kubb-edge); stroke-width: 1; }
+svg .shot-field { fill: none; stroke: var(--kubb); stroke-width: 2; }
+svg .shot-unsure { fill: none; stroke: var(--ink-3); stroke-width: 1.5; stroke-dasharray: 3 2; }
+svg .unsure { fill: var(--paper); stroke: var(--ink-3); stroke-width: 1.5; stroke-dasharray: 3 2; }
+svg .tick-other { stroke: var(--other); stroke-width: 1.5; opacity: .75; fill: none; }
+svg .span { stroke: var(--kubb); stroke-width: 2; fill: none; stroke-linecap: round; }
+svg .fit { stroke: var(--kubb); stroke-width: 2; fill: none; }
+svg .estimate { fill: var(--marker); stroke: var(--ink); stroke-width: 1.5; }
+svg .fit-back { stroke: var(--kubb); stroke-width: 2; stroke-dasharray: 2 5; stroke-linecap: round; fill: none; }
+svg .whisker { stroke: var(--ink); stroke-width: 2; fill: none; }
+svg .pooled { fill: var(--ink); stroke: var(--paper); stroke-width: 1.5; }
+svg .bar-other { fill: var(--other); } svg .bar-kubb { fill: var(--kubb); }
+svg .halo { fill: none; stroke: var(--ink); stroke-width: 2; }
+.tablewrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-family: var(--sans); font-size: 14px; }
+td.r { font-variant-numeric: tabular-nums; }
+table.wrap td:first-child { white-space: normal; min-width: 11em; }
+caption { caption-side: top; text-align: left; font-family: var(--sans); font-size: 14px; color: var(--ink-2); padding-bottom: 8px; }
+caption b { color: var(--ink); }
+th, td { text-align: left; padding: 7px 14px 7px 0; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+thead th { border-bottom: 1.5px solid var(--ink); font-weight: 600; font-size: 12px; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-2); }
+td.r, th.r { text-align: right; }
+td.dim { color: var(--ink-3); }
+.verdict { border: 2px solid var(--ink); padding: 20px 22px; display: flex; flex-direction: column; gap: 10px; }
+.verdict p { margin: 0; }
+.verdict .big { font-family: var(--sans); font-weight: 800; font-size: clamp(22px, 3.6vw, 30px); line-height: 1.2; letter-spacing: -.01em; text-wrap: balance; }
+.box { background: var(--panel); padding: 16px 18px; display: flex; flex-direction: column; gap: 9px; font-size: 16.5px; }
+.box p { margin: 0; }
+.coins { display: flex; flex-direction: column; gap: 8px; font-family: var(--sans); font-size: 13px; color: var(--ink-2); }
+.coins .row { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; }
+.coins .who { flex: 0 0 100%; }
+.coin { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--ink-2); display: inline-flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 11px; color: var(--ink); flex: none; }
+svg .bell { fill: var(--panel); stroke: var(--ink-3); stroke-width: 1.5; }
+svg .arrow-m { fill: var(--martin); } svg .arrow-f { fill: var(--friend); }
+ol.lim { margin: 0; padding-left: 1.3em; display: flex; flex-direction: column; gap: 8px; }
+.small { font-family: var(--sans); font-size: 13.5px; color: var(--ink-2); line-height: 1.5; }
+.small b { color: var(--ink); }
+p.small { margin: 0; }
+hr { border: 0; border-top: 1px solid var(--rule); margin: 0; width: 100%; }
+</style>
+
+<div class="page" lang="sv">
+  <div class="masthead"><span>Tidskrift för icke upprepbara midsommarresultat</span><span>Årg. 1 · Nr 1 · Oktober 2026 · Originalforskning</span></div>
+
+  <header class="col">
+    <h1>När börjar kubben egentligen?</h1>
+    <div class="sub">En onödigt grundlig vetenskaplig utredning av sjutton midsommaraftnar, gjord för att avgöra ett gräl och förklarad så långsamt att även de som förlorar hänger med</div>
+    <div class="authors"><b>M. Olsson</b><sup>1</sup> och <b>Claude</b><sup>2</sup></div>
+    <div class="affil"><sup>1</sup> Beställare av studien och ende anhängare av Hypotes M. <sup>2</sup> Räknenisse. Har aldrig kastat en kubbpinne.<br>Bildbevis: Martin och Jocke. Granskad av: ingen. Godkänd av: oss själva. Läsnivå: efter andra snapsen.</div>
+  </header>
+
+  <section class="col">
+    <div class="abstract">
+      <div class="label">Sammanfattning</div>
+      <p><b>Grälet.</b> Martin säger att kubben på midsommarafton alltid spelas vid 16–17. Ida säger halv sju. Jana säger klockan 21. Ingen av dem hade kollat.</p>
+      <p><b>Vad vi gjorde.</b> Vi samlade varenda bild från midsommarafton 2010–2026, dels ur Martins fotoarkiv, dels ur Jockes kamera: 824 bilder och filmer. Sedan tittade vi på var och en: är den tagen utomhus, och syns det kubb? Årets <i>första kubbild</i>, alltså första bilden på kubben eller på planen där den spelas, är vårt mått. Då är kubben senast igång. När första pinnen kastades vet bara den som var där.</p>
+      <p><b>Vad vi hittade.</b> Sexton år hade kubb på bild. I genomsnitt är kubben igång senast klockan <span class="num">19:05</span>. Av 233 kubbilder är inte en enda tagen mellan 16 och 17.</p>
+      <p><b>Domen.</b> <mark>Ida vinner. Hon missar med 35 min. Jana missar med 1 tim 55 min och Martin med 2 tim 35 min.</mark> Kubben verkar dessutom bli senare för varje år, vilket ger Jana visst hopp om framtiden och Martin visst hopp om forntiden.</p>
+      <div class="keys"><b>Nyckelord:</b> kubb, midsommar, gräsmattespelens dygnsrytm, att ha fel, snaps</div>
+    </div>
+  </section>
+
+  <section class="tiles" aria-label="De viktigaste siffrorna">
+    <div class="tile"><div class="v">19:05</div><div class="k">Då är kubben senast igång, i genomsnitt 2010–2026</div></div>
+    <div class="tile"><div class="v">35 min</div><div class="k">Så lite fel har Ida</div></div>
+    <div class="tile"><div class="v">0 av 233</div><div class="k">Kubbilder tagna mellan 16 och 17</div></div>
+    <div class="tile"><div class="v">1 på 260 000</div><div class="k">Så sällan ger slumpen de här bilderna, om Martin har rätt</div></div>
+    <div class="tile"><div class="v">10<sup>88</sup></div><div class="k">Odds för Ida mot Martin (en etta med 88 nollor)</div></div>
+  </section>
+
+  <section class="col">
+    <h2>1. Bakgrund</h2>
+    <p>Kubb är ett spel där vuxna människor kastar träpinnar på träklossar och blir osams om reglerna. När på midsommarafton det ska spelas står inte nedskrivet någonstans, och därför har det uppstått ett gräl.</p>
+    <p>Martin hävdar att kubben ”alltid har varit vid fyra–fem”. Ida hävdade först ”vid sju” och ändrade sig sedan till halv sju. Jana säger nio. Alla är mycket säkra. Ingen har tittat efter. Vi räknar med Idas senaste bud; vad bytet kostade henne framgår av avsnitt 3.2.</p>
+    <p>Martin äger ett fotoarkiv och beställde den här studien i fast förvissning om att få rätt. Mitt under arbetet lämnade Jocke in 204 egna bilder och filmer från åren 2010–2018. Det förändrade en del.</p>
+    <aside class="box"><div class="eyebrow">Ruta 1 · Så läser du den här uppsatsen</div><p>Uppsatsen innehåller statistik. Var inte rädd. Efter varje krånglig sak kommer en grå ruta som den här, där saken förklaras från början, som för någon som står med en sillbit i handen.</p><p>Inga förkunskaper krävs. Det enda du behöver ha med dig är en åsikt om när kubben spelas. Den tar vi ifrån dig i avsnitt 3.</p></aside>
+  </section>
+
+  <section class="col">
+    <h2>2. Hur vi gick till väga</h2>
+    <h3>2.1 Bilderna</h3>
+    <p>Bilderna kommer från två håll. Ur Martins fotoarkiv, som innehåller över 40 000 bilder, plockade en dator fram allt som är taget på midsommarafton: 620 filer, sedan 8 kopior med fel klockslag hade rensats bort. Från Jocke kom 204 bilder och filmer. Tillsammans täcker de 17 midsommaraftnar, 2010 till 2026. En utförligare redogörelse finns i avsnitt 7.</p>
+    <h3>2.2 Granskningen</h3>
+    <p>Den andre författaren tittade på varenda bild och noterade två saker: är den tagen utomhus, och syns det kubb? En bild räknas som <i>kubbild</i> om man ser klossar, pinnar eller spel. Den räknas som <i>planbild</i> om den visar fältet där kubben spelas, eller stigen dit, utan att några pjäser syns.</p>
+    <h3>2.3 Mätningen</h3>
+    <p>Måttet är klockslaget på årets första kubbild eller planbild, oavsett vem som tog den. Kubben kan ha börjat tidigare än så, men inte senare. Sedan jämförde vi med de tre påståendena: 16:30 (mitt i Martins ”fyra–fem”), 18:30 (Idas ”halv sju”) och 21:00 (Janas ”nio”). För säkerhets skull räknade vi på det på alla sätt vi kom på. Det hade räckt med ett.</p>
+  </section>
+
+  <figure>
+    <div class="legend" aria-hidden="true">
+      <span><i class="sw kubb"></i>Kubbild</span><span><i class="sw field"></i>Kubbplanen, inga pjäser syns</span><span><i class="sw unsure"></i>Okänt gräsmattespel</span><span><i class="sw other"></i>Annan utomhusbild</span><span><i class="sw m"></i>Martin, 16–17</span><span><i class="sw f"></i>Ida, omkring 18:30</span><span><i class="sw j"></i>Jana, omkring 21</span>
+    </div>
+    <div class="plot" id="fig1" role="img" aria-label="Tidslinje över utomhusbilder och kubbilder för varje år. Kubbilderna ligger mellan 15:25 och 21:39, och ingen ligger mellan 16 och 17."></div>
+    <figcaption><b>Figur 1. Varje utomhusbild från varje midsommarafton, efter klockslag.</b> En rad per år. Blå prickar är kubb. Klockslaget på raden är årets första kubbild. Det orange fältet är där Martin säger att kubben ska vara. Leta gärna efter en blå prick i det. Ta den tid du behöver.</figcaption>
+  </figure>
+
+  <section class="col">
+    <h2>3. Resultat</h2>
+    <h3>3.1 När börjar kubben?</h3>
+    <p>Av 824 filer är 652 tagna utomhus. 233 visar kubb och ytterligare 13 visar planen. Kubb finns på bild sexton av sjutton år; bara 2019 saknas. Den tidigaste kubbilden är tagen <span class="num">15:25</span> och den senaste <span class="num">21:39</span>.</p>
+    <p>I genomsnitt tas årets första kubbild <span class="num">19:05</span>. Senast då är kubben igång. Med felmarginal ligger sanningen någonstans mellan <span class="num">18:18–19:52</span>.</p>
+    <p>År 2015 förtjänar ett eget omnämnande. Den midsommaraftonen befinner sig Martins arkiv i Rom, och klockan 11:22 är kameran riktad mot Colosseum. Jockes bilder visar att kubben spelades som vanligt där hemma, med första bild 18:08. Den klarade sig alltså utmärkt utan honom.</p>
+    <aside class="box"><div class="eyebrow">Ruta 2 · Genomsnittet</div><p>Ta de 16 klockslagen. Lägg ihop dem. Dela med 16. Det är ett genomsnitt, och svårare än så blir det aldrig. Här blir det <span class="num">19:05</span>.</p><p>Hur mycket brukar ett enskilt år avvika från genomsnittet? Ungefär 88 minuter. Det kallas <i>standardavvikelse</i> och är ett fint ord för ”så mycket brukar det slå”. Martins 16:30 ligger 1,8 sådana steg bort. Det är som att gissa hur lång en främling är och ta fel på 12 centimeter.</p></aside>
+    <aside class="box"><div class="eyebrow">Ruta 3 · Felmarginalen</div><p>Vi har bara sett 16 midsomrar, inte alla som finns. Därför kan vi inte veta det sanna genomsnittet på minuten. Spannet <span class="num">18:18–19:52</span> är alla svar som bilderna inte kan utesluta.</p><p>Tänk på det som ett fiskenät. Om sanningen är en fisk fångar ett sådant här nät den 95 gånger av 100. Idas gissning ligger i nätet och sprattlar. Janas simmar 1 tim 8 min utanför på ena sidan, Martins 1 tim 48 min utanför på den andra.</p></aside>
+    <aside class="box"><div class="eyebrow">Ruta 4 · Hattmetoden</div><p>Skriv de 16 åren på lappar. Lägg dem i en hatt. Dra 16 lappar, lägg tillbaka lappen varje gång, och räkna ut genomsnittet. Gör om detta 10 000 gånger. Detta är en riktig vetenskaplig metod. Den heter <i>bootstrap</i>, och det finns människor som får lön för att göra det.</p><p>Hatten gav svaret <span class="num">18:21–19:45</span>, alltså ungefär samma som fiskenätet. Två helt olika metoder, en med fisk och en med hatt, pekar ut samma klockslag. Så ser vetenskaplig samstämmighet ut.</p></aside>
+    <aside class="box"><div class="eyebrow">Ruta 5 · Klockstatistik</div><p>Klockslag går runt i en cirkel. 23:59 och 00:01 är grannar, men en vanlig miniräknare tror att mitt emellan dem ligger lunch. Därför finns det en särskild sorts statistik för klockor.</p><p>Den behövdes inte här, eftersom ingen har spelat kubb över midnatt. Vi gjorde den ändå, för att den finns. Svaret blev <span class="num">19:06</span>, alltså i stort sett samma sak.</p></aside>
+  </section>
+
+  <div class="tablewrap">
+    <table id="tab1">
+      <caption><b>Tabell 1. Alla midsommaraftnar.</b> En rad per år. Fotograf är den som tog årets första kubbild.</caption>
+      <thead><tr><th>Midsommarafton</th><th class="r">Filer</th><th class="r">Utomhus</th><th class="r">Kubb</th><th class="r">Planen</th><th class="r">Första kubbild</th><th>Underlag</th><th>Fotograf</th><th class="r">Utomhusbilder 16–17</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <section class="col">
+    <h3>3.2 Rättegången</h3>
+    <p>Ida säger 18:30. Verkligheten säger 19:05. Hon missar med 35 min. Hennes första bud var 19:00, och det hade missat med 5 min, vilket är kortare tid än det tar att hitta alla kubbpinnarna i gräset. Bytet gjorde henne alltså 30 min sämre. Hon vinner ändå. Jana säger 21:00 och ligger 1 tim 55 min för sent. Martin säger 16:30 och ligger 2 tim 35 min för tidigt.</p>
+    <p>Hur mycket bättre är Idas gissning? Om man ger alla en halvtimmes spelrum för ordet ”vid” passar bilderna 10<sup>46</sup> gånger bättre med Ida än med Jana, och 10<sup>88</sup> gånger bättre med Ida än med Martin. Det sista talet är en etta följd av 88 nollor. Hela det synliga universum beräknas innehålla ungefär 10<sup>80</sup> atomer, så atomerna räcker inte till för att räkna upp hur fel Martin har.</p>
+    <aside class="box"><div class="eyebrow">Ruta 6 · Hur mycket tur behövs? Förklarat med enkronor</div><p>Vi ställer en enda fråga: <i>om gissningen vore sann, hur ofta skulle slumpen råka ge bilder som ligger så här långt ifrån den?</i> Ju mer sällan, desto mer tur behöver gissningen för att klara sig. Det betyder inte att gissningen är en dålig människa.</p><div class="coins"><div class="row"><span class="who">Martin behöver mer tur än att singla krona 17 gånger i rad (1 på 260 000):</span><span class="coin">kr</span><span class="coin">kr</span><span class="coin">kr</span><span class="coin">kr</span><span class="coin">kr</span><span class="coin">kr</span><span class="coin">kr</span><span class="coin">kr</span><span class="coin">kr</span><span class="coin">kr</span><span class="coin">kr</span><span class="coin">kr</span><span class="coin">kr</span><span class="coin">kr</span><span class="coin">kr</span><span class="coin">kr</span><span class="coin">kr</span></div><div class="row"><span class="who">Jana behöver mer tur än att singla krona 13 gånger i rad (1 på 10 000):</span><span class="coin">kr</span><span class="coin">kr</span><span class="coin">kr</span><span class="coin">kr</span><span class="coin">kr</span><span class="coin">kr</span><span class="coin">kr</span><span class="coin">kr</span><span class="coin">kr</span><span class="coin">kr</span><span class="coin">kr</span><span class="coin">kr</span><span class="coin">kr</span></div><div class="row"><span class="who">Ida behöver mer tur än att singla krona 2 gånger i rad (13 av 100):</span><span class="coin">kr</span><span class="coin">kr</span></div></div><p>Vetenskapen brukar ge upp om en gissning redan vid drygt fyra kronor i rad (1 på 20).</p></aside>
+    <aside class="box"><div class="eyebrow">Ruta 7 · Oddsen, förklarade med en kortlek</div><p>Oddsen är 10<sup>88</sup> mot 1 för Ida mot Martin. Det talet är för stort för att betyda något, så vi tar en kortlek.</p><p>En blandad kortlek kan hamna i ungefär 8 × 10<sup>67</sup> olika ordningar. Att satsa på Martin framför Ida är som att slå vad om att man kan rabbla upp hela den blandade kortleken i rätt ordning utan att titta, och sedan ha ungefär 100 triljoner gånger sämre chans än så. Jana ligger bättre till: hennes odds, 10<sup>46</sup>, motsvarar ungefär antalet atomer i 1/6 000 av jordklotet.</p></aside>
+    <p class="small"><b>Finstilt, för den som absolut vill veta.</b> Martin: t(15) = 7,07, p = 0,000004, effektstorlek d = 1,8. Ida: t(15) = 1,60, p = 0,13. Jana: t(15) = −5,24, p = 0,00010. Trend: R² = 0,38, p = 0,01. Klockstatistikens samstämmighet: 0,93 av 1. Ingen förväntas läsa detta. Det står här för att det ska se seriöst ut.</p>
+  </section>
+
+  <figure>
+    <div class="legend" aria-hidden="true"><span><i class="sw bar-other"></i>Här hamnar man om gissningen stämmer</span><span><i class="sw f"></i>Ida</span><span><i class="sw j"></i>Jana</span><span><i class="sw m"></i>Martin</span></div>
+    <div class="plot" id="figt" role="img" aria-label="En kulle som visar var en riktig gissning hamnar. Idas resultat ligger på kullen, en bit till höger om mitten. Janas ligger utanför diagrammets vänstra kant och Martins utanför den högra."></div>
+    <figcaption><b>Figur 2. Förvåningskurvan.</b> Om en gissning stämmer ska verkligheten hamna någonstans under kullen, helst nära mitten. Ida står en bit ner på sluttningen, men tryggt kvar på kullen. Jana och Martin hamnade utanför diagrammet åt var sitt håll, och pilarna talar om hur många centimeter bort man får leta.</figcaption>
+  </figure>
+
+  <figure>
+    <div class="legend" aria-hidden="true">
+      <span><i class="sw kubb"></i>Årets första kubbild</span><span><i class="sw field"></i>Årets första planbild</span><span><i class="sw m"></i>Martin, 16:30</span><span><i class="sw f"></i>Ida, 18:30</span><span><i class="sw j"></i>Jana, 21:00</span>
+    </div>
+    <div class="plot" id="fig2" role="img" aria-label="Första kubbilden för varje år samt genomsnitt med felmarginal, jämfört med 16:30, 18:30 och 21:00."></div>
+    <figcaption><b>Figur 3. År för år, och alla år ihop.</b> Blå streck går från årets första till årets sista kubbild. De svarta rutorna längst ner är genomsnittet räknat på tre sätt, och strecken genom dem är felmarginalen. Den gröna linjen går rakt igenom alla tre. Diagramtypen kallas skogsdiagram. Det har ingenting med skog att göra.</figcaption>
+  </figure>
+
+  <div class="tablewrap">
+    <table>
+      <caption><b>Tabell 2. Samma sak räknad på tre sätt, ifall någon vill bråka om reglerna.</b> Sträng räknar bara bilder där kubben syns. Normal räknar också bilder på planen. Snäll räknar dessutom ett okänt gräsmattespel som Martin fotade 2018. De tre sista kolumnerna visar hur ofta slumpen ger sådana här bilder om gissningen stämmer.</caption>
+      <thead><tr><th>Räknesätt</th><th class="r">År</th><th class="r">Första kubbild</th><th>Felmarginal</th><th class="r">Om Martin har rätt</th><th class="r">Om Jana har rätt</th><th class="r">Om Ida har rätt</th></tr></thead>
+      <tbody><tr><td>Sträng</td><td class="r">15</td><td class="r">19:03</td><td>18:13–19:53</td><td class="r">1 på 78 000</td><td class="r">1 på 5 500</td><td class="r">18 av 100</td></tr><tr><td>Normal</td><td class="r">16</td><td class="r">19:05</td><td>18:18–19:52</td><td class="r">1 på 260 000</td><td class="r">1 på 10 000</td><td class="r">13 av 100</td></tr><tr><td>Snäll</td><td class="r">16</td><td class="r">19:05</td><td>18:18–19:52</td><td class="r">1 på 260 000</td><td class="r">1 på 10 000</td><td class="r">13 av 100</td></tr></tbody>
+    </table>
+  </div>
+
+  <div class="tablewrap">
+    <table class="wrap">
+      <caption><b>Tabell 3. Felet, omräknat till andra enheter för den som inte tänker i minuter.</b> Jorden snurrar en grad på fyra minuter och rusar runt solen i knappt 30 km i sekunden. Till månen är det 384 400 km. Promenadtakten är 5 km/h. Ett varv av ”Små grodorna” antas ta 40 sekunder.</caption>
+      <thead><tr><th>Mått på felet</th><th class="r">Martin</th><th class="r">Jana</th><th class="r">Ida</th></tr></thead>
+      <tbody><tr><td>Minuter</td><td class="r">155</td><td class="r">115</td><td class="r">35</td></tr><tr><td>Grader som jordklotet hann snurra under tiden</td><td class="r">38,7°</td><td class="r">28,8°</td><td class="r">8,7°</td></tr><tr><td>Kilometer man hinner promenera medan man väntar</td><td class="r">12,9</td><td class="r">9,6</td><td class="r">2,9</td></tr><tr><td>Kilometer jorden hann färdas runt solen</td><td class="r">276 922</td><td class="r">205 514</td><td class="r">62 506</td></tr><tr><td>Samma sträcka, mätt i resor till månen</td><td class="r">0,72</td><td class="r">0,53</td><td class="r">0,16</td></tr><tr><td>Varv av ”Små grodorna” man hinner sjunga</td><td class="r">232</td><td class="r">173</td><td class="r">52</td></tr><tr><td>Andel av ett helt dygn</td><td class="r">10,8 %</td><td class="r">8,0 %</td><td class="r">2,4 %</td></tr><tr><td>Timmar, hopräknat över de 16 midsomrarna</td><td class="r">41,3</td><td class="r">30,7</td><td class="r">9,3</td></tr></tbody>
+    </table>
+  </div>
+
+  <section class="col">
+    <h3>3.3 Men tänk om ingen fotar vid fyra?</h3>
+    <p>Här kan Martin invända att ingen tar några bilder mellan 16 och 17, och att kubben därför kan ha pågått obemärkt. Vi kollade. Det finns 29 utomhusbilder från just den timmen, åren 2021, 2024 och 2025. De visar ett sällskap under ett partytält, selfies med en hund och en ballongtävling med ögonbindel. Kameran var alltså framme, den var riktad mot festen och den fungerade. Den såg ingen kubb.</p>
+    <p>Närmast kom Martin år 2013. Då fotade Jocke kubb mellan <span class="num">15:25</span> och <span class="num">15:51</span>, och sista bilden är tagen 8 min innan Martins timme börjar. Det är det enda året på hela listan då kubben var igång före fem. Statistiken delar tyvärr inte ut poäng för nästan.</p>
+    <aside class="box"><div class="eyebrow">Ruta 8 · Brandvarnaren</div><p>Innan man säger att något inte har hänt måste man kolla att man hade märkt det om det hade hänt. En brandvarnare utan batteri rapporterar heller aldrig någon brand.</p><p>Här är brandvarnaren en mobiltelefon. Mellan 16 och 17 tjöt den 29 gånger: för ett tält, en hund och några ballonger. Batteriet sitter i. Det fanns bara ingen kubb att tjuta för.</p></aside>
+  </section>
+
+  <figure>
+    <div class="legend" aria-hidden="true"><span><i class="sw bar-other"></i>Andra utomhusbilder</span><span><i class="sw bar-kubb"></i>Kubbilder</span><span><i class="sw m"></i>Martins timme</span></div>
+    <div class="plot" id="fig4" role="img" aria-label="Stapeldiagram över utomhusbilder per timme, uppdelat på kubb och annat. Timmen 16 till 17 har 29 utomhusbilder och ingen kubb. Flest kubbilder är tagna mellan 18 och 19."></div>
+    <figcaption><b>Figur 4. Utomhusbilder per timme, alla år ihop.</b> Timmen 16–17 är flitigt fotograferad och helt fri från kubb. Den höga blå stapeln står i timmen 18–19, runt Idas klockslag, och är till största delen Jockes verk.</figcaption>
+  </figure>
+
+  <section class="col">
+    <h3>3.4 Framtiden, och forntiden</h3>
+    <p>Blir kubben senare för varje år? Vi drog ett streck genom prickarna. Det lutar +10,4 minuter per år, med en felmarginal från +2,8 till +18,0. Slumpen ensam ger en så brant lutning ungefär 1 gång av 100. Kubben blir alltså senare, på riktigt. En ansvarsfull forskare slutar här.</p>
+    <p>Vi fortsatte. Drar man ut strecket bakåt spelades kubben 16:30 år 2003. Martin har alltså inte fel. Han är bara 23 år sen. Drar man ut det framåt får Jana rätt omkring 2029, och år 2046 börjar kubben vid midnatt och är då rent tekniskt flyttad till midsommardagen.</p>
+    <p>För midsommar 2027 blir prognosen att första kubbilden tas <span class="num">20:39</span>, eller med felmarginal någon gång mellan <span class="num">17:47–23:31</span>.</p>
+    <p>Här måste vi erkänna en sak. Innan Jockes bilder kom in hade vi bara Martins egna, från 2020 och framåt. De gav första kubbild <span class="num">20:13</span>, och sade att en midsommar med första kubbilden mellan 16 och 17 inträffar en gång på 20 096 år. Den förra borde i så fall ha infallit omkring år 18 070 före Kristus, då Sverige låg under ett flera kilometer tjockt istäcke, vilket försvårar kubbspel.</p>
+    <p>Med Jockes bilder krympte den siffran från 20 096 år till 17 år. Istiden är avblåst. Martins egna bilder var alltså hans värsta fiende: de gav honom fel med 3 tim 43 min, medan Jockes kamera drog ner felet med 1 tim 8 min och samtidigt gav segern till Ida.</p>
+    <aside class="box"><div class="eyebrow">Ruta 9 · Strecket genom prickarna, och en brasklapp</div><p>Lägg en linjal över prickarna så rakt det går. Titta på hur mycket linjalen lutar. Det är hela metoden, och den heter <i>regression</i>. Prognosen för 2027 spänner över 5 tim 44 min, vilket är statistikens sätt att säga ”någon gång under kvällen”.</p><p>Nu brasklappen. De tidiga åren kommer från Jockes kamera och de sena från Martins telefon. Jockes år ger i snitt första kubbild <span class="num">18:12</span> och Martins <span class="num">20:13</span>. Skillnaden är 2 tim 1 min. Antingen har kubben flyttat sig två timmar på femton år, eller så tar Martin helt enkelt upp telefonen två timmar senare än Jocke. Statistiken kan inte skilja på de två. Det kan bara den som var där.</p></aside>
+  </section>
+
+  <figure>
+    <div class="legend" aria-hidden="true"><span><i class="sw kubb"></i>Årets första kubbild</span><span><i class="sw field"></i>Prognos 2027</span><span><i class="sw est"></i>Kubbestimat 2003</span><span><i class="sw m"></i>Martin, 16:30</span><span><i class="sw f"></i>Ida, 18:30</span><span><i class="sw j"></i>Jana, 21:00</span></div>
+    <div class="plot" id="fig3" role="img" aria-label="Första kubbilden per år med trendlinje, osäkerhetsfält och prognos för nästa år. Linjen stiger från omkring 18 år 2010 till omkring 20:30 år 2026, och är dragen bakåt till 16:30 år 2003."></div>
+    <figcaption><b>Figur 5. Första kubbilden per år, med streck och spådom.</b> Det skuggade fältet är felmarginalen. Den prickade delen till vänster är strecket draget bakåt till 2003, där det inte finns några bilder. Den gula rutan är kubbestimatet för det året: uträknat, inte fotograferat. Strecket lämnar Idas linje bakom sig omkring 2015 och är på väg mot Janas.</figcaption>
+  </figure>
+
+  <section class="col">
+    <h2>4. Vad betyder allt detta?</h2>
+    <p>Sett över alla 16 år är kubben igång senast strax efter sju. Ida säger halv sju och kommer närmast. Hennes gissning ligger närmast 9 av åren, Janas 6 och Martins 1. Stryker man vilket år som helst hamnar genomsnittet ändå mellan <span class="num">18:55–19:20</span>.</p>
+    <p>Jana har inte rätt, men hon har tiden på sin sida. 16 kubbilder är tagna inom en halvtimme från hennes klockslag, och åren 2010, 2020, 2022, 2023, 2025 och 2026 ligger närmast hennes gissning. Fortsätter trenden vinner hon grälet omkring 2029.</p>
+    <p>Martins gissning stöds inte av en enda bild. Vi har funderat på om han kan ha tänkt på en annan lek. År 2025 visar arkivet mycket riktigt en organiserad tävling utomhus klockan 16:36. Den gäller ballonger.</p>
+    <h3>4.1 Sådant som kan tala emot oss</h3>
+    <ol class="lim">
+      <li>En bild visar när någon tog upp kameran, inte när första pinnen kastades. På flera av Jockes bilder är spelet redan igång, så kubben började något före första bilden. Därför säger vi ”igång senast” och inte ”börjar”. Det hjälper Martin lite och Jana inte alls.</li>
+      <li>Fotografen byts ungefär samtidigt som kubben blir senare (se ruta 9). Trenden kan alltså vara en trend i vem som håller i kameran.</li>
+      <li>Jockes bilder från 2011–2016 är tagna med en vanlig kamera vars klocka ställs för hand. Går den en timme fel, till exempel för att ingen ställde om till sommartid, går de åren en timme fel. Vi har inget sätt att kontrollera det. Bilderna från 2017 och 2018 är tagna med mobil, och mobiler ställer klockan själva.</li>
+      <li>Åren 2022 och 2026 bygger på bilder av planen. År 2026 finns ingen bild på själva spelet, bara på stigen dit, klockan 19:56.</li>
+      <li>År 2019 finns bilder men ingen kubb. Kubb som ingen fotar kan inte klockas.</li>
+      <li>Vi har bara två personers bilder. Ida och Jana uppmanas inkomma med egna, särskilt Jana.</li>
+      <li>Bilderna har bedömts av en dator som aldrig har varit på en midsommarfest, och ingen som var där har kontrollerat bedömningen.</li>
+    </ol>
+  </section>
+
+  <section class="col">
+    <div class="verdict">
+      <div class="eyebrow">5. Domen</div>
+      <p class="big">Kubben på midsommarafton är igång senast <mark>19:05</mark>. Ida säger halv sju. Ida vinner.</p>
+      <p>Hon missar med 35 min, och hade missat med 5 min om hon hade stått kvar vid sju. Jana missar med 1 tim 55 min och Martin med 2 tim 35 min. Kubben har inte fastnat på bild mellan 16 och 17 ett enda år av sexton.</p>
+    </div>
+  </section>
+
+  <section class="col">
+    <h2>6. Rekommendationer</h2>
+    <ol class="lim">
+      <li>Martin bör erkänna, skriftligen eller i visform. Vi föreslår melodin ”Helan går”.</li>
+      <li>Ida får fira, men bör sluta ändra sig medan hon leder.</li>
+      <li>Jana bör inte ge upp. Hon bör vänta.</li>
+      <li>Jocke bör tackas. Utan hans kamera hade vi fortfarande trott på istiden.</li>
+      <li>Klockslaget <span class="num">19:05</span> bör hädanefter kallas Kubbnormaltid och förkortas KNT.</li>
+      <li>Den som vill spela kubb 16:30 är fri att göra det, och blir i så fall först någonsin med att fastna på bild.</li>
+      <li>Mer forskning behövs. Nästa mätning kan göras midsommarafton 2027, ungefär klockan <span class="num">20:39</span>. Ta med telefonen, och ta upp den i tid.</li>
+    </ol>
+  </section>
+
+  <section class="col">
+    <h2>7. Källor, och hur vi kom fram till det här</h2>
+    <p>För den som undrar var siffrorna kommer ifrån, utan krångel.</p>
+    <h3>7.1 Källorna</h3>
+    <ol class="lim">
+      <li><b>Martins fotoarkiv.</b> Martin sparar sina bilder i en tjänst som heter Ente. Därifrån kommer 620 bilder och filmer från midsommarafton, de flesta tagna med mobil.</li>
+      <li><b>Jockes bilder.</b> Jocke lade upp 204 bilder och filmer i ett gemensamt album. De är från 2010–2018 och tagna med en kompaktkamera (2011–2016), en mobil (2017–2018) och en äldre mobil som filmade (2010).</li>
+      <li><b>Gissningarna.</b> Martin, Ida och Jana har lämnat sina muntligen. Ida har lämnat två. Inget av detta finns på papper, vilket de nog ångrar olika mycket.</li>
+      <li><b>Almanackan.</b> Midsommarafton är alltid fredagen mellan 19 och 25 juni. Det gav oss sjutton datum att leta efter.</li>
+    </ol>
+    <h3>7.2 Stegen</h3>
+    <ol class="lim">
+      <li><b>Vi hämtade bilderna.</b> Ente låser alla bilder med en nyckel som bara Martin har, så inte ens Ente kan titta på dem. Entes eget hämtningsprogram kan bara hämta <i>allt</i> på en gång, och allt var för stort för datorn. Programmet är däremot öppet för vem som helst att läsa och ändra. Vi lade därför till en liten funktion: ”hämta bara bilder från de här datumen”. Ändringen gjordes i kopian på Martins dator. Ente själva, och deras servrar, rördes inte.</li>
+      <li><b>Vi läste av klockan.</b> Varje digital bild har en osynlig stämpel med datum och klockslag från kameran. Det är den vi har använt. Vi räknade om allt till svensk tid.</li>
+      <li><b>Vi tittade på varenda bild.</b> Utomhus eller inte? Kubb eller inte? 233 bilder visade kubb.</li>
+      <li><b>Vi tog årets första kubbild</b> och antecknade klockslaget. Det blev 16 klockslag, ett per år.</li>
+      <li><b>Vi räknade.</b> Genomsnitt, felmarginal, hatt, kortlek och linjal, allt enligt rutorna ovan. Uträkningarna görs av ett litet program som vi skrev själva och som kontrolleras av ett femtiotal automatiska prov, så att ingen siffra är inskriven för hand.</li>
+      <li><b>Vi skrev ner det</b> med så rakt ansikte vi kunde.</li>
+    </ol>
+    <h3>7.3 Vad vi inte har gjort</h3>
+    <p>Vi visar inga bilder. De ligger kvar hos Martin, och här finns bara klockslag. Vi har inte frågat någon som var där. Vi har inte heller rättat något i efterhand för att någon skulle få mer rätt. Det märks.</p>
+  </section>
+
+  <hr>
+  <section class="col small">
+    <p><b>Jäv.</b> Den förste författaren tror på Hypotes M, beställde studien och äger större delen av bilderna. Resultatet har inte ändrats för hans skull, vilket torde framgå. Den andre författaren har inget att vinna och har aldrig smakat sill.</p>
+    <p><b>Tack.</b> Till Jocke, för bildbevisen.</p>
+    <p><b>Finansiering.</b> Ingen.</p>
+    <p><b>Etikprövning.</b> Ingen frågade.</p>
+  </section>
+</div>
+
+<script>
+const D = {"guesses":[{"key":"ida","name":"Ida","letter":"I","point":1110,"window":[1080,1140],"error":34.9822916666667,"photos_in_window":148,"years_closest":9,"log10_behind_best":0.0},{"key":"jana","name":"Jana","letter":"J","point":1260,"window":[1230,1290],"error":115.0177083333333,"photos_in_window":16,"years_closest":6,"log10_behind_best":46.34525308688117},{"key":"martin","name":"Martin","letter":"M","point":990,"window":[960,1020],"error":154.9822916666667,"photos_in_window":0,"years_closest":1,"log10_behind_best":88.00060831863156}],"by_source":{"guest":{"n":9,"years":[2010,2011,2012,2013,2014,2015,2016,2017,2018],"mean":1092.2388888888888,"sd":73.72932949496949,"p_martin_window":0.12715541211021014},"own":{"n":7,"years":[2020,2021,2022,2023,2024,2025,2026],"mean":1212.795238095238,"sd":49.549920314513116,"p_martin_window":4.976231603509183e-05}},"claims":{"martin":990,"martin_window":[960,1020],"friend":1110,"friend_first":1140,"friend_window":[1080,1140],"jana":1260,"jana_window":[1230,1290],"claim_sd":30},"totals":{"files":824,"outdoor":652,"kubb":233,"field":13,"unsure":4,"copies":8,"guest_files":204,"years_searched":17,"years_with_photos":17,"first_year":2010,"last_year":2026},"eves":{"2010":"2010-06-25","2011":"2011-06-24","2012":"2012-06-22","2013":"2013-06-21","2014":"2014-06-20","2015":"2015-06-19","2016":"2016-06-24","2017":"2017-06-23","2018":"2018-06-22","2019":"2019-06-21","2020":"2020-06-19","2021":"2021-06-25","2022":"2022-06-24","2023":"2023-06-23","2024":"2024-06-21","2025":"2025-06-20","2026":"2026-06-19"},"scenarios":{"strict":{"n":15,"years":[2010,2011,2012,2013,2014,2015,2016,2017,2018,2020,2021,2022,2023,2024,2025],"onsets":[1206.75,1067.6333333333334,1116.0833333333333,925.8666666666667,1086.25,1088.9666666666667,1113.2166666666667,1122.65,1102.7333333333333,1188.05,1183.9833333333333,1299.1333333333334,1185.1,1187.8833333333334,1267.1166666666666],"mean":1142.7611111111112,"median":1122.65,"sd":90.22040245154372,"ci_lo":1092.7987175608926,"ci_hi":1192.7235046613298,"boot_lo":1097.9199999999998,"boot_hi":1184.9844444444445,"vs_martin":{"t":6.557732211394621,"df":14,"p":1.2747290960751339e-05,"cohen_d":1.6931991762412866},"vs_friend":{"t":1.4063696712584695,"df":14,"p":0.18142177506950563,"cohen_d":0.36312308769301677},"error_martin":152.76111111111118,"error_friend":32.76111111111118,"claims":{"martin":{"t":6.557732211394621,"df":14,"p":1.2747290960751339e-05,"cohen_d":1.6931991762412866,"error":152.76111111111118,"inside_ci":false},"ida":{"t":1.4063696712584695,"df":14,"p":0.18142177506950563,"cohen_d":0.36312308769301677,"error":32.76111111111118,"inside_ci":true},"jana":{"t":-5.032833503911719,"df":14,"p":0.00018303763361177095,"cohen_d":-1.2994720229923205,"error":117.23888888888882,"inside_ci":false}}},"main":{"n":16,"years":[2010,2011,2012,2013,2014,2015,2016,2017,2018,2020,2021,2022,2023,2024,2025,2026],"onsets":[1206.75,1067.6333333333334,1116.0833333333333,925.8666666666667,1086.25,1088.9666666666667,1113.2166666666667,1122.65,1102.7333333333333,1188.05,1183.9833333333333,1299.0833333333333,1185.1,1169.6333333333334,1267.1166666666666,1196.6],"mean":1144.9822916666667,"median":1146.1416666666669,"sd":87.72922302697465,"ci_lo":1098.2346885283773,"ci_hi":1191.729894804956,"boot_lo":1101.434375,"boot_hi":1184.8270833333333,"vs_martin":{"t":7.066392990577989,"df":15,"p":3.832221618251314e-06,"cohen_d":1.7665982476444972},"vs_friend":{"t":1.5950120363386997,"df":15,"p":0.13155865547785484,"cohen_d":0.3987530090846749},"error_martin":154.9822916666667,"error_friend":34.9822916666667,"claims":{"martin":{"t":7.066392990577989,"df":15,"p":3.832221618251314e-06,"cohen_d":1.7665982476444972,"error":154.9822916666667,"inside_ci":false},"ida":{"t":1.5950120363386997,"df":15,"p":0.13155865547785484,"cohen_d":0.3987530090846749,"error":34.9822916666667,"inside_ci":true},"jana":{"t":-5.244214156460412,"df":15,"p":9.902690879987221e-05,"cohen_d":-1.311053539115103,"error":115.0177083333333,"inside_ci":false}}},"generous":{"n":16,"years":[2010,2011,2012,2013,2014,2015,2016,2017,2018,2020,2021,2022,2023,2024,2025,2026],"onsets":[1206.75,1067.6333333333334,1116.0833333333333,925.8666666666667,1086.25,1088.9666666666667,1113.2166666666667,1122.65,1102.7333333333333,1188.05,1183.9833333333333,1299.0833333333333,1185.1,1169.6333333333334,1267.1166666666666,1196.6],"mean":1144.9822916666667,"median":1146.1416666666669,"sd":87.72922302697465,"ci_lo":1098.2346885283773,"ci_hi":1191.729894804956,"boot_lo":1101.434375,"boot_hi":1184.8270833333333,"vs_martin":{"t":7.066392990577989,"df":15,"p":3.832221618251314e-06,"cohen_d":1.7665982476444972},"vs_friend":{"t":1.5950120363386997,"df":15,"p":0.13155865547785484,"cohen_d":0.3987530090846749},"error_martin":154.9822916666667,"error_friend":34.9822916666667,"claims":{"martin":{"t":7.066392990577989,"df":15,"p":3.832221618251314e-06,"cohen_d":1.7665982476444972,"error":154.9822916666667,"inside_ci":false},"ida":{"t":1.5950120363386997,"df":15,"p":0.13155865547785484,"cohen_d":0.3987530090846749,"error":34.9822916666667,"inside_ci":true},"jana":{"t":-5.244214156460412,"df":15,"p":9.902690879987221e-05,"cohen_d":-1.311053539115103,"error":115.0177083333333,"inside_ci":false}}}},"per_year":[{"year":2010,"date":"2010-06-25","files":4,"outdoor":4,"kubb":[1206.75,1209.35,1232.8],"field":[],"unsure":[],"outdoor_other":[1240.8333333333333],"onset":1206.75,"onset_source":"guest","guest_files":4,"onset_basis":"kubb","control_16_17":0,"control_friend":0},{"year":2011,"date":"2011-06-24","files":54,"outdoor":54,"kubb":[1067.6333333333334,1067.8166666666666,1067.95,1068.2,1068.2833333333333,1070.4333333333334,1070.5,1070.65,1075.2666666666667,1075.35,1075.6166666666666,1075.8,1076.3333333333333,1076.4666666666667,1077.05,1077.1833333333334,1077.25,1077.45,1088.6666666666667,1089.5,1089.9166666666667,1090.0833333333333,1090.2166666666667,1090.3166666666666,1090.4166666666667,1091.6166666666666,1091.75,1092.1,1092.1666666666667,1093.1333333333334,1093.9166666666667,1094.05,1094.8833333333334,1097.7666666666667,1098.1,1098.35,1098.5666666666666,1098.7,1099.1166666666666,1099.3,1099.45,1099.7833333333333,1099.9,1100.0166666666667,1100.1333333333334,1100.5666666666666,1101.1666666666667,1101.2833333333333,1101.4333333333334,1101.5333333333333,1101.6833333333334,1102.4166666666667,1102.6166666666666,1102.7333333333333],"field":[],"unsure":[],"outdoor_other":[],"onset":1067.6333333333334,"onset_source":"guest","guest_files":54,"onset_basis":"kubb","control_16_17":0,"control_friend":0},{"year":2012,"date":"2012-06-22","files":4,"outdoor":4,"kubb":[1116.0833333333333,1116.25,1116.8166666666666,1123.05],"field":[],"unsure":[],"outdoor_other":[],"onset":1116.0833333333333,"onset_source":"guest","guest_files":4,"onset_basis":"kubb","control_16_17":0,"control_friend":0},{"year":2013,"date":"2013-06-21","files":20,"outdoor":20,"kubb":[925.8666666666667,927.65,938.1833333333333,938.5333333333333,951.95],"field":[],"unsure":[],"outdoor_other":[926.15,926.3,926.5166666666667,926.7666666666667,926.8666666666667,927.4833333333333,938.4666666666667,952.15,952.25,952.3666666666667,952.4833333333333,952.7,952.8333333333334,953.0,953.1166666666667],"onset":925.8666666666667,"onset_source":"guest","guest_files":20,"onset_basis":"kubb","control_16_17":0,"control_friend":0},{"year":2014,"date":"2014-06-20","files":64,"outdoor":64,"kubb":[1086.25,1086.3166666666666,1086.4166666666667,1087.8166666666666,1087.9,1088.7166666666667,1088.7833333333333,1089.35,1089.4166666666667,1089.5833333333333,1089.6833333333334,1090.1166666666666,1090.3,1090.4333333333334,1093.0,1093.1,1093.25,1094.7166666666667,1094.8166666666666,1094.9833333333333,1095.3333333333333,1095.7166666666667,1096.9666666666667,1097.05,1097.35,1097.6666666666667,1097.8333333333333,1097.95,1099.55,1099.9166666666667,1101.2333333333333,1101.3666666666666,1101.4833333333333,1102.05,1102.1333333333334,1102.8833333333334,1102.9666666666667,1103.35,1103.5,1104.0833333333333,1109.6833333333334,1111.45,1111.6666666666667,1111.7333333333333,1112.2833333333333,1112.3833333333334,1112.6,1113.1666666666667,1114.5666666666666,1114.75,1116.35,1116.4333333333334,1118.2,1118.3166666666666,1122.2333333333333,1123.2166666666667,1123.45,1129.5],"field":[],"unsure":[],"outdoor_other":[1110.6333333333334,1110.7,1110.7833333333333,1111.2833333333333,1112.45,1112.5166666666667],"onset":1086.25,"onset_source":"guest","guest_files":64,"onset_basis":"kubb","control_16_17":0,"control_friend":6},{"year":2015,"date":"2015-06-19","files":33,"outdoor":31,"kubb":[1088.9666666666667,1089.0166666666667,1089.0666666666666,1089.1333333333334,1089.1833333333334,1089.25,1089.3166666666666,1099.9666666666667,1100.3,1100.4166666666667,1100.5333333333333,1100.7166666666667,1101.0166666666667,1102.1166666666666,1102.2,1102.2833333333333,1103.95,1106.05,1106.1,1106.1833333333334,1108.65,1108.7333333333333,1113.3833333333334,1113.9666666666667,1136.1666666666667],"field":[],"unsure":[],"outdoor_other":[682.8166666666667,728.4833333333333,728.5333333333333,1113.8166666666666,1114.1333333333334,1136.0833333333333],"onset":1088.9666666666667,"onset_source":"guest","guest_files":28,"onset_basis":"kubb","control_16_17":0,"control_friend":3},{"year":2016,"date":"2016-06-24","files":13,"outdoor":13,"kubb":[1113.2166666666667,1115.75,1115.8166666666666,1120.9833333333333,1121.05,1121.1166666666666,1121.2333333333333,1121.3166666666666,1121.45,1121.6666666666667],"field":[],"unsure":[],"outdoor_other":[1113.0666666666666,1115.8666666666666,1121.5333333333333],"onset":1113.2166666666667,"onset_source":"guest","guest_files":13,"onset_basis":"kubb","control_16_17":0,"control_friend":3},{"year":2017,"date":"2017-06-23","files":18,"outdoor":17,"kubb":[1122.65,1122.7166666666667,1122.7666666666667,1122.8166666666666,1122.85,1122.9,1122.95],"field":[],"unsure":[],"outdoor_other":[624.4166666666666,624.5,624.5166666666667,624.5333333333333,628.0333333333333,629.2,1102.9666666666667,1103.0,1104.0666666666666,1124.75],"onset":1122.65,"onset_source":"guest","guest_files":7,"onset_basis":"kubb","control_16_17":0,"control_friend":4},{"year":2018,"date":"2018-06-22","files":58,"outdoor":58,"kubb":[1102.7333333333333,1102.7833333333333,1102.8666666666666,1111.2166666666667,1111.2333333333333,1111.5,1111.5333333333333,1111.6],"field":[],"unsure":[1165.5666666666666,1165.5833333333333,1165.6,1165.6],"outdoor_other":[699.5,699.5166666666667,896.75,897.5333333333333,899.05,899.0666666666667,899.75,901.1,901.9,901.9333333333333,901.95,902.75,902.7833333333333,902.9333333333333,902.9333333333333,902.95,902.9833333333333,904.45,904.45,905.5333333333333,905.55,905.6166666666667,907.3833333333333,907.4833333333333,907.5166666666667,907.5666666666667,914.2,914.2166666666667,914.2333333333333,914.25,914.25,914.2666666666667,914.2833333333333,917.3166666666667,917.3333333333334,917.35,917.6166666666667,917.6333333333333,917.6333333333333,917.65,917.6666666666666,917.6833333333333,1103.05,1111.3833333333334,1135.15,1189.0666666666666],"onset":1102.7333333333333,"onset_source":"guest","guest_files":10,"onset_basis":"kubb","control_16_17":0,"control_friend":3},{"year":2019,"date":"2019-06-21","files":16,"outdoor":9,"kubb":[],"field":[],"unsure":[],"outdoor_other":[1117.6666666666667,1117.6833333333334,1241.4666666666667,1241.55,1241.5666666666666,1241.5666666666666,1241.5666666666666,1241.5833333333333,1405.8166666666666],"onset":null,"onset_source":null,"guest_files":0,"onset_basis":null,"control_16_17":0,"control_friend":2},{"year":2020,"date":"2020-06-19","files":16,"outdoor":8,"kubb":[1188.05,1188.0833333333333,1188.1333333333334,1188.15,1188.25],"field":[],"unsure":[],"outdoor_other":[781.7666666666667,781.8,781.8166666666667],"onset":1188.05,"onset_source":"own","guest_files":0,"onset_basis":"kubb","control_16_17":0,"control_friend":0},{"year":2021,"date":"2021-06-25","files":14,"outdoor":13,"kubb":[1183.9833333333333,1186.3666666666666,1186.3833333333334,1186.4,1186.4833333333333,1186.5166666666667],"field":[],"unsure":[],"outdoor_other":[971.6833333333333,971.7,971.7166666666667,1091.1333333333334,1158.6333333333334,1158.6333333333334,1158.65],"onset":1183.9833333333333,"onset_source":"own","guest_files":0,"onset_basis":"kubb","control_16_17":3,"control_friend":1},{"year":2022,"date":"2022-06-24","files":6,"outdoor":6,"kubb":[1299.1333333333334,1299.15,1299.1833333333334,1299.2,1299.2333333333333],"field":[1299.0833333333333],"unsure":[],"outdoor_other":[],"onset":1299.0833333333333,"onset_source":"own","guest_files":0,"onset_basis":"field","control_16_17":0,"control_friend":0},{"year":2023,"date":"2023-06-23","files":51,"outdoor":42,"kubb":[1185.1,1185.1166666666666,1185.15,1185.1833333333334,1185.2333333333333,1189.8833333333334,1189.95,1190.0333333333333,1190.05,1190.0666666666666,1190.0666666666666,1190.0666666666666,1190.0666666666666,1192.0166666666667,1192.0333333333333,1192.0666666666666,1192.0833333333333,1192.1166666666666,1192.1333333333334,1192.15,1234.4666666666667,1234.4833333333333,1234.6833333333334,1234.6833333333334],"field":[],"unsure":[],"outdoor_other":[554.2166666666667,554.45,554.45,554.5,554.5166666666667,554.6666666666666,554.6833333333333,554.7166666666667,558.8833333333333,559.5166666666667,562.4,1186.5833333333333,1186.6,1186.6166666666666,1201.35,1201.3666666666666,1201.5166666666667,1201.55],"onset":1185.1,"onset_source":"own","guest_files":0,"onset_basis":"kubb","control_16_17":0,"control_friend":0},{"year":2024,"date":"2024-06-21","files":194,"outdoor":119,"kubb":[1187.8833333333334,1187.9166666666667,1187.9333333333334,1197.3666666666666,1209.6166666666666,1209.6333333333334,1209.7],"field":[1169.6333333333334,1169.6666666666667,1178.2166666666667,1178.2333333333333],"unsure":[],"outdoor_other":[561.5666666666667,561.7333333333333,561.7833333333333,561.8666666666667,561.9333333333333,561.95,561.9833333333333,562.0166666666667,562.0666666666667,562.0833333333334,562.1333333333333,562.15,562.2333333333333,562.4166666666666,562.4666666666667,562.4833333333333,562.5166666666667,562.5333333333333,562.5833333333334,562.6333333333333,562.6666666666666,562.6833333333333,562.7,562.75,562.8,562.8833333333333,562.9,569.6666666666666,569.7333333333333,569.75,569.7833333333333,569.8,569.8333333333334,569.8666666666667,569.9,569.9666666666667,570.0166666666667,570.1166666666667,570.15,570.2166666666667,609.9333333333333,609.95,640.2333333333333,640.25,640.35,640.35,850.65,850.7166666666667,873.4833333333333,873.5666666666667,873.5833333333334,873.6666666666666,873.7166666666667,876.05,876.0666666666667,896.9166666666666,902.9,902.9166666666666,915.0666666666667,915.0666666666667,915.0666666666667,936.0333333333333,936.0833333333334,966.85,966.8833333333333,966.9,966.9333333333333,966.9666666666667,967.0833333333334,1015.0333333333333,1015.1166666666667,1027.5666666666666,1044.5,1044.5333333333333,1044.55,1044.5833333333333,1044.6,1068.6333333333334,1079.75,1080.5,1080.5166666666667,1080.5333333333333,1081.0666666666666,1081.3333333333333,1085.2833333333333,1085.3333333333333,1092.3666666666666,1092.4,1092.4333333333334,1092.4666666666667,1092.4833333333333,1092.8666666666666,1192.9166666666667,1192.9333333333334,1197.9833333333333,1206.95,1206.9833333333333,1210.0833333333333,1210.1166666666666,1210.15,1210.3166666666666,1344.6833333333334,1344.7,1354.75,1354.8166666666666,1418.7333333333333,1418.7666666666667,1423.4166666666667],"onset":1169.6333333333334,"onset_source":"own","guest_files":0,"onset_basis":"field","control_16_17":8,"control_friend":13},{"year":2025,"date":"2025-06-20","files":90,"outdoor":51,"kubb":[1267.1166666666666,1267.1333333333334,1267.1666666666667,1267.2166666666667,1267.2666666666667,1267.35,1267.3833333333334,1267.4333333333334,1269.4666666666667,1269.4666666666667,1269.7833333333333,1292.2333333333333],"field":[],"unsure":[],"outdoor_other":[809.9333333333333,809.9833333333333,810.0333333333333,810.0833333333334,810.1,810.1833333333333,810.2166666666667,810.3166666666667,810.4333333333333,810.4833333333333,810.5333333333333,810.5666666666667,811.2,811.25,940.6833333333333,940.7,946.5333333333333,946.55,946.5666666666667,969.8166666666667,969.9,969.9166666666666,971.3,971.3166666666667,972.6,972.6333333333333,996.55,996.5666666666667,998.7666666666667,998.7666666666667,998.7833333333333,998.8333333333334,999.0666666666667,999.1166666666667,999.1333333333333,1005.2833333333333,1005.3,1031.95,1031.9666666666667],"onset":1267.1166666666666,"onset_source":"own","guest_files":0,"onset_basis":"kubb","control_16_17":18,"control_friend":0},{"year":2026,"date":"2026-06-19","files":169,"outdoor":139,"kubb":[],"field":[1196.6,1196.6333333333334,1196.65,1196.6833333333334,1196.7166666666667,1196.7333333333333,1196.7833333333333,1196.8166666666666],"unsure":[],"outdoor_other":[548.3833333333333,548.3833333333333,548.5,548.5833333333334,548.6,551.3333333333334,551.35,551.3666666666667,551.3666666666667,556.3166666666667,556.3333333333334,556.3666666666667,556.3833333333333,565.85,565.85,566.8166666666667,566.85,566.85,566.8666666666667,566.8666666666667,570.5166666666667,570.5666666666667,570.6333333333333,570.65,570.7833333333333,570.8,571.9666666666667,572.0333333333333,572.0666666666667,572.0833333333334,572.1,574.05,574.2833333333333,574.3,574.3,574.3166666666667,574.6666666666666,574.75,574.7666666666667,574.8833333333333,574.9,574.9333333333333,574.95,574.9666666666667,574.9833333333333,575.0,575.0,575.0,581.3833333333333,581.4,582.75,582.75,585.6333333333333,585.6333333333333,585.65,586.0666666666667,586.0666666666667,600.55,816.9833333333333,817.0,817.1,817.1166666666667,817.1333333333333,817.2166666666667,817.25,817.3,817.35,817.4333333333333,817.45,817.4666666666667,817.4833333333333,817.5166666666667,817.5333333333333,817.5666666666667,817.5833333333334,817.6166666666667,817.6166666666667,819.3833333333333,819.4333333333333,819.4666666666667,819.6666666666666,819.6833333333333,819.7666666666667,819.8,819.8833333333333,819.9,819.9666666666667,819.9833333333333,820.0,820.0666666666667,820.1,820.1333333333333,820.1833333333333,820.2166666666667,820.2666666666667,820.2833333333333,820.3166666666667,820.35,820.3833333333333,820.4166666666666,820.4333333333333,820.5,820.5,820.5333333333333,820.5666666666667,822.85,822.8666666666667,822.9333333333333,822.9666666666667,822.9833333333333,823.0333333333333,823.05,823.1,823.1333333333333,823.5333333333333,823.5833333333334,823.65,823.7,823.8833333333333,823.9166666666666,823.9166666666666,824.05,824.1166666666667,824.1333333333333,824.1333333333333,824.3333333333334,824.3666666666667,824.4,921.7333333333333,921.7666666666667,1136.8833333333334],"onset":1196.6,"onset_source":"own","guest_files":0,"onset_basis":"field","control_16_17":0,"control_friend":1}],"hist":[{"hour":7,"kubb":0,"other":0},{"hour":8,"kubb":0,"other":0},{"hour":9,"kubb":0,"other":108},{"hour":10,"kubb":0,"other":13},{"hour":11,"kubb":0,"other":3},{"hour":12,"kubb":0,"other":2},{"hour":13,"kubb":0,"other":87},{"hour":14,"kubb":0,"other":15},{"hour":15,"kubb":5,"other":64},{"hour":16,"kubb":0,"other":29},{"hour":17,"kubb":18,"other":10},{"hour":18,"kubb":148,"other":36},{"hour":19,"kubb":35,"other":10},{"hour":20,"kubb":10,"other":17},{"hour":21,"kubb":17,"other":0},{"hour":22,"kubb":0,"other":4},{"hour":23,"kubb":0,"other":4}],"regression":{"slope":10.421827164286075,"intercept":-19885.613561664864,"r2":0.382856143705819,"se_slope":3.536350015043054,"p":0.010607486786749163,"slope_lo":2.8371107282038146,"slope_hi":18.006543600368335,"residual_sd":71.33769943617443,"forecast_year":2027,"forecast":{"fit":1239.4301003430082,"lo":1067.3890686168036,"hi":1411.471132069213},"line":[{"year":2010,"fit":1062.2590385501462,"lo":893.4458427919644,"hi":1231.072234308328},{"year":2011,"fit":1072.680865714432,"lo":906.4215285291763,"hi":1238.9402028996876},{"year":2012,"fit":1083.1026928787178,"lo":919.0859401145492,"hi":1247.1194456428864},{"year":2013,"fit":1093.5245200430036,"lo":931.4261578669598,"hi":1255.6228822190474},{"year":2014,"fit":1103.9463472072894,"lo":943.4305576417739,"hi":1264.4621367728048},{"year":2015,"fit":1114.3681743715752,"lo":955.0891292138477,"hi":1273.6472195293027},{"year":2016,"fit":1124.790001535861,"lo":966.3937717836807,"hi":1283.1862312880412},{"year":2017,"fit":1135.2118287001504,"lo":977.3385478072611,"hi":1293.0851095930395},{"year":2018,"fit":1145.6336558644362,"lo":987.9198774971155,"hi":1303.3474342317568},{"year":2019,"fit":1156.055483028722,"lo":998.1366595758509,"hi":1313.974306481593},{"year":2020,"fit":1166.4773101930077,"lo":1007.9903089550091,"hi":1324.9643114310063},{"year":2021,"fit":1176.8991373572935,"lo":1017.484708371335,"hi":1336.313566343252},{"year":2022,"fit":1187.3209645215793,"lo":1026.6260777850791,"hi":1348.0158512580795},{"year":2023,"fit":1197.742791685865,"lo":1035.422771588449,"hi":1360.0628117832812},{"year":2024,"fit":1208.1646188501509,"lo":1043.8850185571562,"hi":1372.4442191431456},{"year":2025,"fit":1218.5864460144367,"lo":1052.0246224555606,"hi":1385.1482695733127},{"year":2026,"fit":1229.0082731787224,"lo":1059.8546420946639,"hi":1398.161904262781},{"year":2027,"fit":1239.4301003430082,"lo":1067.3890686168036,"hi":1411.471132069213}],"year_at_martin":2003.0665671756901,"year_at_midnight":2046.2451761572397},"circular":{"mean":1146.0575323684807,"r":0.934255508669592},"bayes":{"log10_friend_over_martin":88.00060831863156},"photo_level":{"n":233,"earliest":925.8666666666667,"latest":1299.2333333333333,"in_martin":0,"martin_upper":0.012774919102451487,"in_friend":148,"friend_upper":0.6876970507506337},"future":{"p_martin_window":0.059639779942969276,"p_friend_window":0.24792222527100843},"leave_one_out":{"min":1134.708888888889,"max":1159.59},"control":{"martin_window_photos":29,"martin_window_years":[2021,2024,2025]},"tcurve":{"df":15,"norm":0.39235316284007815,"marks":[{"key":"ida","name":"Ida","letter":"I","t":1.5950120363386997},{"key":"jana","name":"Jana","letter":"J","t":-5.244214156460412},{"key":"martin","name":"Martin","letter":"M","t":7.066392990577989}]},"notes":{"2015":"firades i Rom; ingen kubb vid Colosseum"},"people":{"own":"Martin","guest":"Jocke"}};
+(function () {
+  const NS = "http://www.w3.org/2000/svg";
+  const el = (name, attrs, parent) => { const n = document.createElementNS(NS, name); for (const k in attrs) n.setAttribute(k, attrs[k]); if (parent) parent.appendChild(n); return n; };
+  const txt = (parent, x, y, s, cls, anchor) => { const t = el("text", { x, y, class: cls || "", "text-anchor": anchor || "start" }, parent); t.textContent = s; return t; };
+  const clock = (m, sec) => { const t = Math.round(m * (sec ? 60 : 1)); const h = sec ? Math.floor(t / 3600) : Math.floor(t / 60); const mi = sec ? Math.floor(t % 3600 / 60) : t % 60; const p = n => String(n).padStart(2, "0"); return p(h % 24) + ":" + p(mi) + (sec ? ":" + p(t % 60) : ""); };
+  const photo = m => clock(Math.floor(m + 1e-9));  // a capture time, truncated like a clock
+  const ROW = (window.CHART || {}).row || 26;  // row height; the big-screen pictures use tighter rows
+  const C = D.claims, Y0 = D.totals.first_year, Y1 = D.totals.last_year;
+  const sv = (v, n) => v.toFixed(n).replace(".", ",").replace("-", "−");
+
+  // one shared hover layer per chart: the pointer only has to be nearest to a mark
+  function hover(host, svg, points) {
+    const tip = document.createElement("div"); tip.className = "tip"; tip.hidden = true; host.appendChild(tip);
+    const halo = el("circle", { r: 8, class: "halo", visibility: "hidden" }, svg);
+    const show = p => {
+      halo.setAttribute("cx", p.x); halo.setAttribute("cy", p.y); halo.setAttribute("visibility", "visible");
+      tip.textContent = ""; const b = document.createElement("b"); b.textContent = p.value; tip.appendChild(b);
+      tip.appendChild(document.createTextNode(" " + p.label)); tip.hidden = false;
+      const w = host.clientWidth, tw = tip.offsetWidth;
+      tip.style.left = Math.max(0, Math.min(w - tw, p.x - tw / 2)) + "px"; tip.style.top = Math.max(0, p.y - 40) + "px";
+    };
+    const hide = () => { tip.hidden = true; halo.setAttribute("visibility", "hidden"); };
+    svg.addEventListener("pointermove", e => {
+      const r = svg.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+      let best = null, bd = 30 * 30;
+      for (const p of points) { const d = (p.x - x) ** 2 + (p.y - y) ** 2; if (d < bd) { bd = d; best = p; } }
+      best ? show(best) : hide();
+    });
+    svg.addEventListener("pointerleave", hide);
+  }
+
+  function frame(id, height) {
+    const host = document.getElementById(id); host.textContent = "";
+    const W = Math.max(280, host.clientWidth);
+    const svg = el("svg", { viewBox: `0 0 ${W} ${height}`, height }, host);
+    return { host, svg, W };
+  }
+
+  function timeAxis(svg, x, lo, hi, y0, y1, narrow) {
+    const step = narrow ? 120 : 60;
+    for (let m = Math.ceil(lo / step) * step; m <= hi; m += step) {
+      el("line", { x1: x(m), x2: x(m), y1: y0, y2: y1, class: "grid" }, svg);
+      txt(svg, x(m), y1 + 16, clock(m), "", "middle");
+    }
+  }
+
+  function fig1() {
+    const rowH = ROW, top = 26, years = []; for (let y = Y0; y <= Y1; y++) years.push(y);
+    const { host, svg, W } = frame("fig1", top + rowH * years.length + 26);
+    const narrow = W < 560, L = 44, R = 12, lo = 8 * 60, hi = 24 * 60;
+    const x = m => L + (m - lo) / (hi - lo) * (W - L - R), bottom = top + rowH * years.length;
+    el("rect", { x: x(C.martin_window[0]), y: top, width: x(C.martin_window[1]) - x(C.martin_window[0]), height: bottom - top, class: "band-m" }, svg);
+    el("rect", { x: x(C.friend_window[0]), y: top, width: x(C.friend_window[1]) - x(C.friend_window[0]), height: bottom - top, class: "band-f" }, svg);
+    el("rect", { x: x(C.jana_window[0]), y: top, width: x(C.jana_window[1]) - x(C.jana_window[0]), height: bottom - top, class: "band-j" }, svg);
+    timeAxis(svg, x, lo, hi, top, bottom, narrow);
+    txt(svg, x(C.martin), top - 8, narrow ? "M" : "Martin", "strong", "middle");
+    txt(svg, x(C.friend), top - 8, narrow ? "I" : "Ida", "strong", "middle");
+    txt(svg, x(C.jana), top - 8, narrow ? "J" : "Jana", "strong", "middle");
+    const byYear = {}; D.per_year.forEach(p => byYear[p.year] = p);
+    const pts = [];
+    years.forEach((year, i) => {
+      const cy = top + rowH * i + rowH / 2, p = byYear[year];
+      el("line", { x1: L, x2: W - R, y1: top + rowH * (i + 1), y2: top + rowH * (i + 1), class: "grid" }, svg);
+      txt(svg, 0, cy + 4, String(year), "strong");
+      if (!p) { txt(svg, x(lo) + 6, cy + 4, "inga bilder i arkivet"); return; }
+      p.outdoor_other.forEach(t => el("line", { x1: x(t), x2: x(t), y1: cy - 6, y2: cy + 6, class: "tick-other" }, svg));
+      const add = (times, cls, label, r = 4.5) => times.forEach(t => { el("circle", { cx: x(t), cy, r, class: cls }, svg); pts.push({ x: x(t), y: cy, value: clock(t, true), label: year + " · " + label }); });
+      add(p.unsure, "shot-unsure", "okänt gräsmattespel"); add(p.kubb, "shot", "kubbild"); add(p.field, "shot-field", "kubbplanen", 7);
+      if (p.onset != null) { const last = Math.max(...p.kubb, ...p.field, ...p.unsure); txt(svg, x(last) + 11, cy + 4, photo(p.onset), "data"); }
+    });
+    hover(host, svg, pts);
+  }
+
+  function fig2() {
+    const S = D.scenarios, main = S.main, rowH = ROW, top = 26;
+    const rows = main.years.map((y, i) => ({ year: y, onset: main.onsets[i] }));
+    const pooled = [["Sträng", S.strict], ["Normal", S.main], ["Snäll", S.generous]];
+    const H = top + rowH * (rows.length + pooled.length) + 14 + 26;
+    const { host, svg, W } = frame("fig2", H);
+    const narrow = W < 560, L = narrow ? 64 : 110, R = narrow ? 12 : 170, lo = 15 * 60, hi = 22 * 60;
+    const x = m => L + (m - lo) / (hi - lo) * (W - L - R), bottom = H - 26, pts = [];
+    timeAxis(svg, x, lo, hi, top, bottom, narrow);
+    el("line", { x1: x(C.martin), x2: x(C.martin), y1: top, y2: bottom, class: "ref-m" }, svg);
+    el("line", { x1: x(C.friend), x2: x(C.friend), y1: top, y2: bottom, class: "ref-f" }, svg);
+    txt(svg, x(C.martin), top - 8, narrow ? "M" : "M 16:30", "strong", "middle");
+    txt(svg, x(C.friend), top - 8, narrow ? "I" : "I " + clock(C.friend), "strong", "middle");
+    el("line", { x1: x(C.jana), x2: x(C.jana), y1: top, y2: bottom, class: "ref-j" }, svg);
+    txt(svg, x(C.jana), top - 8, narrow ? "J" : "J 21:00", "strong", "middle");
+    const byYear = {}; D.per_year.forEach(p => byYear[p.year] = p);
+    rows.forEach((r, i) => {
+      const cy = top + rowH * i + rowH / 2, p = byYear[r.year], last = p.kubb.length ? Math.max(...p.kubb) : r.onset;
+      txt(svg, 0, cy + 4, String(r.year), "strong");
+      if (last > r.onset) el("line", { x1: x(r.onset), x2: x(last), y1: cy, y2: cy, class: "span" }, svg);
+      el("circle", { cx: x(r.onset), cy, r: 5, class: p.onset_basis === "kubb" ? "kubb" : "field" }, svg);
+      if (!narrow) txt(svg, W - R + 14, cy + 4, photo(r.onset) + (photo(last) !== photo(r.onset) ? "–" + photo(last) : ""), "data");
+      pts.push({ x: x(r.onset), y: cy, value: clock(r.onset, true), label: r.year + ", första " + (p.onset_basis === "kubb" ? "kubbild" : "planbild") + ", foto " + D.people[p.onset_source] });
+    });
+    const sep = top + rowH * rows.length + 7;
+    el("line", { x1: 0, x2: W, y1: sep, y2: sep, class: "axis" }, svg);
+    pooled.forEach(([name, s], i) => {
+      const cy = sep + 7 + rowH * i + rowH / 2, cx = x(s.mean);
+      txt(svg, 0, cy + 4, narrow ? name : name + " (" + s.n + " år)", "strong");
+      el("line", { x1: x(s.ci_lo), x2: x(s.ci_hi), y1: cy, y2: cy, class: "whisker" }, svg);
+      el("path", { d: `M${cx - 7},${cy} L${cx},${cy - 6} L${cx + 7},${cy} L${cx},${cy + 6} Z`, class: "pooled" }, svg);
+      if (!narrow) txt(svg, W - R + 14, cy + 4, clock(s.mean) + " [" + clock(s.ci_lo) + ", " + clock(s.ci_hi) + "]", "data");
+      pts.push({ x: cx, y: cy, value: clock(s.mean) + " [" + clock(s.ci_lo) + ", " + clock(s.ci_hi) + "]", label: "genomsnitt, " + name.toLowerCase() + " räkning, " + s.n + " år" });
+    });
+    hover(host, svg, pts);
+  }
+
+  function fig3() {
+    const R = D.regression, main = D.scenarios.main, H = 340;
+    const { host, svg, W } = frame("fig3", H);
+    const narrow = W < 560, L = 48, Rm = narrow ? 14 : 150, top = 14, bottom = H - 28, lo = 15 * 60, hi = 24 * 60;
+    // the axis reaches back to the year the line meets Martin's guess, so that claim can be seen in the chart
+    const back = R.year_at_martin < main.years[0] && R.year_at_martin > main.years[0] - 15 ? R.year_at_martin : null;
+    const y0 = back == null ? main.years[0] : Math.floor(back), y1 = R.forecast_year, tight = narrow || y1 - y0 > 11, step = y1 - y0 > 18 ? 2 : 1;
+    const x = yr => L + (yr - y0 + .4) / (y1 - y0 + .8) * (W - L - Rm), y = m => bottom - (m - lo) / (hi - lo) * (bottom - top), pts = [];
+    for (let m = lo; m <= hi; m += 60) { el("line", { x1: L, x2: W - Rm, y1: y(m), y2: y(m), class: "grid" }, svg); txt(svg, L - 8, y(m) + 4, clock(m), "", "end"); }
+    for (let yr = y0; yr <= y1; yr++) if (narrow ? (yr - y0) % (2 * step) === 0 || yr === y1 : (y1 - yr) % step === 0) txt(svg, x(yr), bottom + 18, tight ? "'" + String(yr).slice(2) : String(yr), yr === y1 ? "strong" : "", "middle");
+    const band = R.line.map(p => x(p.year) + "," + y(Math.min(hi, p.hi))).concat(R.line.slice().reverse().map(p => x(p.year) + "," + y(Math.max(lo, p.lo))));
+    el("polygon", { points: band.join(" "), class: "band-pi" }, svg);
+    el("line", { x1: L, x2: W - Rm, y1: y(C.martin), y2: y(C.martin), class: "ref-m" }, svg);
+    el("line", { x1: L, x2: W - Rm, y1: y(C.friend), y2: y(C.friend), class: "ref-f" }, svg);
+    el("line", { x1: L, x2: W - Rm, y1: y(C.jana), y2: y(C.jana), class: "ref-j" }, svg);
+    if (!narrow) { txt(svg, W - Rm + 10, y(C.jana) + 4, "Jana 21:00", "strong"); txt(svg, W - Rm + 10, y(C.martin) + 4, "Martin 16:30", "strong"); txt(svg, W - Rm + 10, y(C.friend) + 4, "Ida " + clock(C.friend), "strong"); }
+    if (back != null) {
+      el("line", { x1: x(back), x2: x(R.line[0].year), y1: y(C.martin), y2: y(R.line[0].fit), class: "fit-back" }, svg);
+      // the estimate gets its own shape and colour: a blue dot there would read as a measured year
+      const ex = x(back), ey = y(C.martin), d = 6.5;
+      el("polygon", { points: [ex, ey - d, ex + d, ey, ex, ey + d, ex - d, ey].join(" "), class: "estimate" }, svg);
+      txt(svg, ex + 11, ey + 13, "kubbestimat " + Math.round(back), "data");
+      txt(svg, (x(back) + x(R.line[0].year)) / 2, y(lo) - 10, narrow ? "inga bilder" : "inga bilder före " + main.years[0], "", "middle");
+      pts.push({ x: x(back), y: y(C.martin), value: clock(C.martin), label: "strecket draget bakåt till " + Math.round(back) + ", inga bilder" });
+    }
+    el("polyline", { points: R.line.map(p => x(p.year) + "," + y(p.fit)).join(" "), class: "fit" }, svg);
+    main.years.forEach((yr, i) => { el("circle", { cx: x(yr), cy: y(main.onsets[i]), r: 5, class: "kubb" }, svg); pts.push({ x: x(yr), y: y(main.onsets[i]), value: clock(main.onsets[i], true), label: "första kubbild " + yr }); });
+    const f = R.forecast, fx = x(y1);
+    el("line", { x1: fx, x2: fx, y1: y(Math.min(hi, f.hi)), y2: y(f.lo), class: "whisker" }, svg);
+    el("circle", { cx: fx, cy: y(f.fit), r: 5.5, class: "field" }, svg);
+    if (!narrow) txt(svg, W - Rm + 10, y(f.fit) + 16, "Prognos " + y1 + ": " + clock(f.fit), "data");
+    pts.push({ x: fx, y: y(f.fit), value: clock(f.fit) + " [" + clock(f.lo) + ", " + clock(f.hi) + "]", label: "prognos " + y1 + ", med felmarginal" });
+    hover(host, svg, pts);
+  }
+
+  function fig4() {
+    const hist = D.hist.filter(h => h.hour >= 9), H = 280;
+    const { host, svg, W } = frame("fig4", H);
+    const L = 36, R = 8, top = 22, bottom = H - 28, max = Math.max(...hist.map(h => Math.max(h.kubb, h.other)));
+    const top_v = Math.ceil(max / 20) * 20, slot = (W - L - R) / hist.length, bw = Math.max(4, Math.min(18, slot / 2 - 3));
+    const y = v => bottom - v / top_v * (bottom - top), pts = [];
+    for (let v = 0; v <= top_v; v += 20) { el("line", { x1: L, x2: W - R, y1: y(v), y2: y(v), class: v ? "grid" : "axis" }, svg); txt(svg, L - 8, y(v) + 4, String(v), "", "end"); }
+    const bar = (cx, v, cls) => { if (!v) return; const h = Math.max(2, bottom - y(v)), r = Math.min(4, bw / 2, h); el("path", { d: `M${cx - bw / 2},${bottom} v${-(h - r)} q0,${-r} ${r},${-r} h${bw - 2 * r} q${r},0 ${r},${r} v${h - r} Z`, class: cls }, svg); };
+    hist.forEach((h, i) => {
+      const c = L + slot * (i + .5);
+      if (h.hour === 16) el("rect", { x: L + slot * i, y: top, width: slot, height: bottom - top, class: "band-m" }, svg);
+      bar(c - bw / 2 - 1, h.other, "bar-other"); bar(c + bw / 2 + 1, h.kubb, "bar-kubb");
+      txt(svg, c, bottom + 18, String(h.hour).padStart(2, "0"), h.hour === 16 ? "strong" : "", "middle");
+      if (h.hour === 16) txt(svg, c - bw - 1, y(h.other) - 8, slot < 40 ? "0 kubb" : h.other + " bilder, 0 kubb", "strong");
+      if (h.kubb) txt(svg, c + bw / 2 + 1, y(h.kubb) - 6, String(h.kubb), "data", "middle");
+      pts.push({ x: c, y: y(Math.max(h.other, h.kubb)), value: h.kubb + " kubb, " + h.other + " övriga", label: "utomhusbilder, " + String(h.hour).padStart(2, "0") + ":00–" + String(h.hour + 1).padStart(2, "0") + ":00" });
+    });
+    txt(svg, L, 12, "Bilder");
+    hover(host, svg, pts);
+  }
+
+  function figt() {
+    const T = D.tcurve, H = 230, cls = { martin: "m", ida: "f", jana: "j" };
+    const { host, svg, W } = frame("figt", H);
+    const narrow = W < 560, side = narrow ? 50 : 130, L = side, R = side, top = 46, bottom = H - 28, lo = -5, hi = 5;
+    const unit = (W - L - R) / (hi - lo), x = t => L + (t - lo) * unit;
+    const pdf = t => T.norm * Math.pow(1 + t * t / T.df, -(T.df + 1) / 2), y = t => bottom - pdf(t) / T.norm * (bottom - top - 10);
+    let d = `M${x(lo)},${bottom}`; for (let t = lo; t <= hi + 1e-9; t += 0.1) d += ` L${x(t)},${y(t)}`; d += ` L${x(hi)},${bottom} Z`;
+    el("path", { d, class: "bell" }, svg);
+    el("line", { x1: 6, x2: W - 6, y1: bottom, y2: bottom, class: "axis" }, svg);
+    for (let t = lo; t <= hi; t += (narrow ? 5 : 1)) txt(svg, x(t), bottom + 17, String(t).replace("-", "−"), "", "middle");
+    const pts = [];
+    T.marks.forEach(mk => {
+      const c = cls[mk.key], who = narrow ? mk.letter : mk.name;
+      if (Math.abs(mk.t) <= hi) {
+        // inside the chart: a line at the result, labelled above the hill
+        el("line", { x1: x(mk.t), x2: x(mk.t), y1: top - 6, y2: bottom, class: "ref-" + c }, svg);
+        txt(svg, x(mk.t), top - 14, who + " " + sv(mk.t, 2), "strong", "middle");
+        pts.push({ x: x(mk.t), y: top - 6, value: sv(mk.t, 2), label: "steg från mitten: " + mk.name });
+      } else {
+        // off the chart: an arrow at the edge and the distance in centimetres at this scale
+        const right = mk.t > 0, edge = right ? W - 8 : 8, from = right ? x(hi) + 8 : x(lo) - 8, ay = bottom - 46;
+        const cm = Math.max(1, Math.round((Math.abs(mk.t) - hi) * unit / 37.8));
+        el("line", { x1: from, x2: edge + (right ? -10 : 10), y1: ay, y2: ay, class: "ref-" + c }, svg);
+        el("path", { d: `M${edge},${ay} l${right ? -12 : 12},-7 v14 Z`, class: "arrow-" + c }, svg);
+        txt(svg, edge, ay - 26, who + " " + sv(mk.t, 2), "strong", right ? "end" : "start");
+        txt(svg, edge, ay - 11, cm + " cm åt det hållet", "", right ? "end" : "start");
+        pts.push({ x: edge, y: ay, value: sv(mk.t, 2), label: "steg från mitten: " + mk.name + ", cirka " + cm + " cm utanför kanten" });
+      }
+    });
+    hover(host, svg, pts);
+  }
+
+  function table1() {
+    const body = document.querySelector("#tab1 tbody"); body.textContent = "";
+    const byYear = {}; D.per_year.forEach(p => byYear[p.year] = p);
+    const fmt = new Intl.DateTimeFormat("sv-SE", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
+    for (let year = Y0; year <= Y1; year++) {
+      const p = byYear[year], tr = document.createElement("tr");
+      const cell = (s, cls) => { const td = document.createElement("td"); td.textContent = s; if (cls) td.className = cls; tr.appendChild(td); };
+      cell(fmt.format(new Date(D.eves[year] + "T00:00:00Z")));
+      if (!p) { ["0", "–", "–", "–", "–"].forEach(s => cell(s, "r dim")); cell("inga bilder i arkivet", "dim"); cell("–", "dim"); cell("–", "r dim"); }
+      else {
+        cell(String(p.files), "r"); cell(String(p.outdoor), "r"); cell(String(p.kubb.length), "r" + (p.kubb.length ? "" : " dim")); cell(String(p.field.length), "r" + (p.field.length ? "" : " dim"));
+        cell(p.onset == null ? "–" : clock(p.onset, true), "r" + (p.onset == null ? " dim" : ""));
+        cell(p.onset == null ? (D.notes[year] || (p.unsure.length ? "okänt gräsmattespel " + photo(p.unsure[0]) : "ingen kubb på bild")) : p.onset_basis === "kubb" ? "kubbild" : "planbild", p.onset == null ? "dim" : "");
+        cell(p.onset == null ? "–" : D.people[p.onset_source], p.onset == null ? "dim" : "");
+        cell(String(p.control_16_17), "r" + (p.control_16_17 ? "" : " dim"));
+      }
+      body.appendChild(tr);
+    }
+  }
+
+  const draw = () => { fig1(); fig2(); figt(); fig3(); fig4(); };
+  table1(); draw();
+  let lastW = window.innerWidth, timer;
+  window.addEventListener("resize", () => { if (window.innerWidth === lastW) return; lastW = window.innerWidth; clearTimeout(timer); timer = setTimeout(draw, 120); });
+})();
+</script>
